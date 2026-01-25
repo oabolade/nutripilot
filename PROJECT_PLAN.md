@@ -1,7 +1,7 @@
 # NutriPilot AI - Project Plan
 
 > **Hackathon**: Commit to Change: An AI Agents Hackathon
-> **Duration**: 24 hours (6 × 4-hour sprints)
+> **Duration**: 4 weeks (4 × 5 day sprints)
 > **Goal**: Build an autonomous nutrition agent demonstrating Observe-Think-Act with Opik observability
 
 ---
@@ -15,22 +15,22 @@ gantt
     axisFormat %H:%M
     
     section Setup
-    Sprint 1 - Foundation     :s1, 00:00, 4h
+    Sprint 1 - Foundation     :s1, 00:00, 2 days
     
     section Core
-    Sprint 2 - Orchestrator   :s2, after s1, 4h
+    Sprint 2 - Orchestrator   :s2, after s1, 3 days
     
     section Agents
-    Sprint 3 - Sub-Agents     :s3, after s2, 4h
+    Sprint 3 - Sub-Agents     :s3, after s2, 5 days
     
     section Integration
-    Sprint 4 - Tools & Eval   :s4, after s3, 4h
+    Sprint 4 - Tools & Eval   :s4, after s3, 5 days
     
     section Frontend
-    Sprint 5 - API & UI       :s5, after s4, 4h
+    Sprint 5 - API & UI       :s5, after s4, 2 days
     
     section Polish
-    Sprint 6 - Demo Ready     :s6, after s5, 4h
+    Sprint 6 - Demo Ready     :s6, after s5, 3 days
 ```
 
 ---
