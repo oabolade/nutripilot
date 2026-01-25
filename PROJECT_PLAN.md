@@ -10,7 +10,7 @@
 
 ```mermaid
 gantt
-    title NutriPilot 24-Hour Build
+    title NutriPilot 4-weeks Build
     dateFormat HH:mm
     axisFormat %H:%M
     
