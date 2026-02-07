@@ -55,4 +55,8 @@ export interface MealAnalysis {
     healthConstraints: HealthConstraint[];
     adjustments: MealAdjustment[];
     summary: string;
+    // Added for verification/calibration
+    entryId?: string;
+    goalAlignment?: number;
+    goalFeedback?: string[];
 }

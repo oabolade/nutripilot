@@ -12,29 +12,30 @@
   --primary-700: #047857;
   --primary-800: #065f46;
   --primary-900: #064e3b;
-  
+
   /* Accent - warm coral for contrast */
   --accent-400: #fb7185;
   --accent-500: #f43f5e;
   --accent-600: #e11d48;
-  
+
   /* Neutrals */
   --background: #0a0a0f;
   --background-subtle: #111118;
   --foreground: #fafafa;
   --foreground-muted: #a1a1aa;
-  
+
   /* Glassmorphism */
   --glass-bg: rgba(255, 255, 255, 0.05);
   --glass-border: rgba(255, 255, 255, 0.1);
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
-@theme inline {
+/* Tailwind theme variables - applied via CSS custom properties */
+:root {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: ui-monospace, monospace;
 }
 
 /* Global styles */
@@ -54,7 +55,7 @@ body {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: 
+  background:
     radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.3), transparent),
     radial-gradient(ellipse 60% 40% at 80% 50%, rgba(52, 211, 153, 0.15), transparent),
     radial-gradient(ellipse 50% 30% at 20% 80%, rgba(244, 63, 94, 0.1), transparent),
@@ -66,6 +67,7 @@ body {
   0% {
     filter: hue-rotate(0deg);
   }
+
   100% {
     filter: hue-rotate(15deg);
   }
@@ -81,6 +83,27 @@ body {
   box-shadow: var(--glass-shadow);
 }
 
+/* Header-specific glass card with more opacity for better contrast */
+.glass-header {
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Hero text with better contrast */
+.hero-text {
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+}
+
+.hero-description {
+  color: #d4d4d8;
+  /* zinc-300 for better contrast */
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+}
+
 /* Gradient text */
 .gradient-text {
   background: linear-gradient(135deg, var(--primary-300), var(--primary-500), var(--accent-400));
@@ -92,8 +115,15 @@ body {
 }
 
 @keyframes gradientText {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 /* Primary button with glow */
@@ -183,10 +213,8 @@ body {
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  background: conic-gradient(
-    var(--primary-400) calc(var(--score) * 3.6deg),
-    rgba(255, 255, 255, 0.1) 0
-  );
+  background: conic-gradient(var(--primary-400) calc(var(--score) * 3.6deg),
+      rgba(255, 255, 255, 0.1) 0);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -211,8 +239,15 @@ body {
 
 /* Pulse animation for loading */
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
 }
 
 .animate-pulse-slow {
@@ -221,8 +256,15 @@ body {
 
 /* Floating animation */
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .animate-float {
@@ -230,7 +272,7 @@ body {
 }
 
 /* Stagger animation for list items */
-.stagger-animation > * {
+.stagger-animation>* {
   animation: fadeSlideUp 0.5s ease forwards;
   opacity: 0;
 }
@@ -240,17 +282,32 @@ body {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-.stagger-animation > *:nth-child(1) { animation-delay: 0.1s; }
-.stagger-animation > *:nth-child(2) { animation-delay: 0.2s; }
-.stagger-animation > *:nth-child(3) { animation-delay: 0.3s; }
-.stagger-animation > *:nth-child(4) { animation-delay: 0.4s; }
-.stagger-animation > *:nth-child(5) { animation-delay: 0.5s; }
+.stagger-animation>*:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.stagger-animation>*:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.stagger-animation>*:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.stagger-animation>*:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.stagger-animation>*:nth-child(5) {
+  animation-delay: 0.5s;
+}
 
 /* Scrollbar styling */
 ::-webkit-scrollbar {
@@ -268,4 +325,21 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary-600);
+}
+
+/* Fade-in animation */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out forwards;
 }

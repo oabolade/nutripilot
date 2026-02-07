@@ -1,0 +1,4 @@
+# NutriPilot Opik Evaluations - Dependencies
+opik>=0.0.10
+pydantic>=2.0.0
+litellm>=1.0.0

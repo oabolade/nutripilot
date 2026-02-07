@@ -4,9 +4,11 @@ import { useCallback, useState, DragEvent } from "react";
 
 interface ImageUploadProps {
     onUpload: (file: File) => void;
+    onBeforeUpload?: () => boolean;  // Return false to prevent upload
+    hasProfile?: boolean;
 }
 
-export default function ImageUpload({ onUpload }: ImageUploadProps) {
+export default function ImageUpload({ onUpload, onBeforeUpload, hasProfile = true }: ImageUploadProps) {
     const [isDragging, setIsDragging] = useState(false);
 
     const handleDragOver = useCallback((e: DragEvent<HTMLDivElement>) => {
@@ -23,11 +25,16 @@ export default function ImageUpload({ onUpload }: ImageUploadProps) {
         e.preventDefault();
         setIsDragging(false);
 
+        // Check if we should proceed
+        if (onBeforeUpload && !onBeforeUpload()) {
+            return;
+        }
+
         const files = e.dataTransfer.files;
         if (files.length > 0 && files[0].type.startsWith("image/")) {
             onUpload(files[0]);
         }
-    }, [onUpload]);
+    }, [onUpload, onBeforeUpload]);
 
     const handleFileSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
@@ -35,6 +42,14 @@ export default function ImageUpload({ onUpload }: ImageUploadProps) {
             onUpload(files[0]);
         }
     }, [onUpload]);
+
+    const handleClick = useCallback(() => {
+        // Check if user has profile first
+        if (onBeforeUpload && !onBeforeUpload()) {
+            return;  // Don't open file picker
+        }
+        document.getElementById("file-input")?.click();
+    }, [onBeforeUpload]);
 
     return (
         <div className="text-center">
@@ -51,7 +66,7 @@ export default function ImageUpload({ onUpload }: ImageUploadProps) {
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
-                onClick={() => document.getElementById("file-input")?.click()}
+                onClick={handleClick}
             >
                 <input
                     id="file-input"

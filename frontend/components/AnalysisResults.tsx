@@ -1,6 +1,7 @@
 "use client";
 
 import { MealAnalysis } from "@/types/meal";
+import VerifyNutrition from "./VerifyNutrition";
 
 interface AnalysisResultsProps {
     analysis: MealAnalysis;
@@ -17,6 +18,19 @@ export default function AnalysisResults({ analysis }: AnalysisResultsProps) {
         if (confidence >= 0.9) return { label: "High", color: "text-emerald-400" };
         if (confidence >= 0.7) return { label: "Medium", color: "text-yellow-400" };
         return { label: "Low", color: "text-rose-400" };
+    };
+
+    // Extract estimated values for verification
+    const getEstimatedValues = () => {
+        const nutrients = analysis.totalNutrients;
+        return {
+            calories: nutrients.find(n => n.name === "calories")?.amount || 0,
+            protein: nutrients.find(n => n.name === "protein")?.amount || 0,
+            carbs: nutrients.find(n => n.name === "carbohydrates")?.amount || 0,
+            fat: nutrients.find(n => n.name === "fat")?.amount || 0,
+            fiber: nutrients.find(n => n.name === "fiber")?.amount,
+            sodium: nutrients.find(n => n.name === "sodium")?.amount,
+        };
     };
 
     return (
@@ -118,10 +132,10 @@ export default function AnalysisResults({ analysis }: AnalysisResultsProps) {
                         <div
                             key={index}
                             className={`p-4 rounded-xl border ${constraint.status === "normal"
-                                    ? "bg-emerald-500/10 border-emerald-500/20"
-                                    : constraint.status === "warning"
-                                        ? "bg-yellow-500/10 border-yellow-500/20"
-                                        : "bg-rose-500/10 border-rose-500/20"
+                                ? "bg-emerald-500/10 border-emerald-500/20"
+                                : constraint.status === "warning"
+                                    ? "bg-yellow-500/10 border-yellow-500/20"
+                                    : "bg-rose-500/10 border-rose-500/20"
                                 }`}
                         >
                             <div className="flex items-center gap-2 mb-1">
@@ -178,6 +192,18 @@ export default function AnalysisResults({ analysis }: AnalysisResultsProps) {
                     </div>
                 </div>
             )}
+
+            {/* Verify Nutrition - for building ground truth dataset */}
+            {analysis.entryId && (
+                <VerifyNutrition
+                    entryId={analysis.entryId}
+                    estimatedValues={getEstimatedValues()}
+                    onVerified={(result) => {
+                        console.log("Verification submitted:", result);
+                    }}
+                />
+            )}
         </div>
     );
 }
+
