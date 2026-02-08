@@ -226,9 +226,9 @@ Custom metrics:
 
 ## 📺 Demo
 
-🎥 **[Watch Demo Video](https://youtu.be/your-video-id)**
+🎥 **[Watch Demo Video](https://www.youtube.com/watch?v=H08rlaXVW14)**
 
-📊 **[Opik Dashboard](https://www.comet.com/opik/your-project)**
+📊 **[Opik Dashboard](https://www.comet.com/opik/oabolade/nutripilot)**
 
 ---
 
