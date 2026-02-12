@@ -8,7 +8,7 @@ import Dashboard from "@/components/Dashboard";
 import OnboardingPrompt from "@/components/OnboardingPrompt";
 import CalibrationReport from "@/components/CalibrationReport";
 import { MealAnalysis } from "@/types/meal";
-import { analyzeMealImage, checkHealth } from "@/lib/api";
+import { analyzeMealImage, checkHealth, API_BASE_URL } from "@/lib/api";
 
 // Mock data for fallback when backend is unavailable
 const mockAnalysis: MealAnalysis = {
@@ -116,7 +116,7 @@ export default function Home() {
   useEffect(() => {
     const checkProfile = async () => {
       try {
-        const res = await fetch(`http://localhost:8000/users/${userId}/profile`);
+        const res = await fetch(`${API_BASE_URL}/users/${userId}/profile`);
         setHasProfile(res.ok);
       } catch {
         setHasProfile(false);

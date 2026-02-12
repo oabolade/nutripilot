@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: nutripilot-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    envVars:
+      - key: GOOGLE_GENERATIVE_AI_API_KEY
+        sync: false
+      - key: OPIK_API_KEY
+        sync: false
+      - key: OPIK_PROJECT_NAME
+        value: nutripilot
+      - key: OPIK_WORKSPACE
+        value: oabolade
+      - key: USDA_API_KEY
+        sync: false
+      - key: ENVIRONMENT
+        value: production
+      - key: PORT
+        value: "8080"

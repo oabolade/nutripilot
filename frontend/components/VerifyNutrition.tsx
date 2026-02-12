@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { API_BASE_URL } from '@/lib/api';
 
 interface VerifyNutritionProps {
     entryId: string;
@@ -57,7 +58,7 @@ export default function VerifyNutrition({ entryId, estimatedValues, onVerified, 
 
         setIsSubmitting(true);
         try {
-            const response = await fetch(`http://localhost:8000/meals/${entryId}/verify`, {
+            const response = await fetch(`${API_BASE_URL}/meals/${entryId}/verify`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -164,8 +165,8 @@ export default function VerifyNutrition({ entryId, estimatedValues, onVerified, 
                                     key={source.value}
                                     onClick={() => setVerificationSource(source.value)}
                                     className={`p-2 rounded-lg text-left text-sm transition-all ${verificationSource === source.value
-                                            ? 'bg-purple-500/30 border-purple-500'
-                                            : 'bg-gray-700/50 hover:bg-gray-700 border-gray-600'
+                                        ? 'bg-purple-500/30 border-purple-500'
+                                        : 'bg-gray-700/50 hover:bg-gray-700 border-gray-600'
                                         } border`}
                                 >
                                     <div className="font-medium">{source.label}</div>
@@ -252,8 +253,8 @@ export default function VerifyNutrition({ entryId, estimatedValues, onVerified, 
                             onClick={handleSubmit}
                             disabled={isSubmitting || !verificationSource}
                             className={`flex-1 py-2 rounded-lg font-medium transition-all ${isSubmitting || !verificationSource
-                                    ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
-                                    : 'bg-purple-600 hover:bg-purple-500 text-white'
+                                ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                                : 'bg-purple-600 hover:bg-purple-500 text-white'
                                 }`}
                         >
                             {isSubmitting ? '⏳ Submitting...' : '✅ Submit Verification'}

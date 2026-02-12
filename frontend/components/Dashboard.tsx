@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { API_BASE_URL } from '@/lib/api';
 
 interface DashboardData {
     user_id: string;
@@ -50,7 +51,7 @@ export default function Dashboard({ userId, isOpen, onClose, onEditGoals, onRese
     const handleResetProfile = async () => {
         setResetting(true);
         try {
-            const res = await fetch(`http://localhost:8000/users/${userId}/profile`, {
+            const res = await fetch(`${API_BASE_URL}/users/${userId}/profile`, {
                 method: 'DELETE',
             });
 
@@ -73,7 +74,7 @@ export default function Dashboard({ userId, isOpen, onClose, onEditGoals, onRese
     useEffect(() => {
         if (isOpen) {
             setLoading(true);
-            fetch(`http://localhost:8000/users/${userId}/dashboard`)
+            fetch(`${API_BASE_URL}/users/${userId}/dashboard`)
                 .then(res => res.json())
                 .then(setData)
                 .catch(err => console.error('Failed to fetch dashboard:', err))

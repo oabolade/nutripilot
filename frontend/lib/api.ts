@@ -7,7 +7,7 @@
 import { MealAnalysis, FoodItem, NutrientInfo, HealthConstraint, MealAdjustment } from "@/types/meal";
 
 // Backend API URL - use environment variable or default to localhost
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 /**
  * Backend API response types (matching Python Pydantic models)

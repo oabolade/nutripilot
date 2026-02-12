@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { API_BASE_URL } from '@/lib/api';
 
 interface Goal {
     value: string;
@@ -55,7 +56,7 @@ export default function GoalSetup({ userId, isOpen, onClose, onSave }: GoalSetup
     // Fetch available goals and conditions
     useEffect(() => {
         if (isOpen) {
-            fetch('http://localhost:8000/goals/available')
+            fetch(`${API_BASE_URL}/goals/available`)
                 .then(res => res.json())
                 .then(data => {
                     setAvailableGoals(data.goals || []);
@@ -64,7 +65,7 @@ export default function GoalSetup({ userId, isOpen, onClose, onSave }: GoalSetup
                 .catch(err => console.error('Failed to fetch goals:', err));
 
             // Also fetch existing profile if any
-            fetch(`http://localhost:8000/users/${userId}/profile`)
+            fetch(`${API_BASE_URL}/users/${userId}/profile`)
                 .then(res => {
                     if (res.ok) return res.json();
                     throw new Error('No profile');
@@ -110,7 +111,7 @@ export default function GoalSetup({ userId, isOpen, onClose, onSave }: GoalSetup
     const handleSave = async () => {
         setSaving(true);
         try {
-            const response = await fetch(`http://localhost:8000/users/${userId}/profile`, {
+            const response = await fetch(`${API_BASE_URL}/users/${userId}/profile`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -175,8 +176,8 @@ export default function GoalSetup({ userId, isOpen, onClose, onSave }: GoalSetup
                                         key={goal.value}
                                         onClick={() => toggleGoal(goal.value)}
                                         className={`p-4 rounded-xl border text-left transition-all ${selectedGoals.includes(goal.value)
-                                                ? 'border-emerald-500 bg-emerald-500/10 text-white'
-                                                : 'border-white/10 hover:border-white/20 text-gray-300'
+                                            ? 'border-emerald-500 bg-emerald-500/10 text-white'
+                                            : 'border-white/10 hover:border-white/20 text-gray-300'
                                             }`}
                                     >
                                         <span className="text-sm font-medium">{goal.label}</span>
@@ -197,8 +198,8 @@ export default function GoalSetup({ userId, isOpen, onClose, onSave }: GoalSetup
                                         key={cond.value}
                                         onClick={() => toggleCondition(cond.value)}
                                         className={`p-4 rounded-xl border text-left transition-all ${selectedConditions.includes(cond.value)
-                                                ? 'border-amber-500 bg-amber-500/10 text-white'
-                                                : 'border-white/10 hover:border-white/20 text-gray-300'
+                                            ? 'border-amber-500 bg-amber-500/10 text-white'
+                                            : 'border-white/10 hover:border-white/20 text-gray-300'
                                             }`}
                                     >
                                         <span className="text-sm font-medium">{cond.label}</span>
@@ -294,8 +295,8 @@ export default function GoalSetup({ userId, isOpen, onClose, onSave }: GoalSetup
                                         key={weeks}
                                         onClick={() => setTimelineWeeks(weeks)}
                                         className={`px-4 py-3 rounded-xl border transition-all ${timelineWeeks === weeks
-                                                ? 'border-emerald-500 bg-emerald-500/10 text-white'
-                                                : 'border-white/10 hover:border-white/20 text-gray-300'
+                                            ? 'border-emerald-500 bg-emerald-500/10 text-white'
+                                            : 'border-white/10 hover:border-white/20 text-gray-300'
                                             }`}
                                     >
                                         {weeks < 12 ? `${weeks} weeks` : `${Math.round(weeks / 4)} months`}

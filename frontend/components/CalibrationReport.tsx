@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { API_BASE_URL } from '@/lib/api';
 
 interface CalibrationMetrics {
     mean_absolute_error: number;
@@ -62,7 +63,7 @@ export default function CalibrationReport({ userId, isOpen, onClose }: Calibrati
         setLoading(true);
         setError(null);
         try {
-            const res = await fetch(`http://localhost:8000/calibrate/${userId}`, {
+            const res = await fetch(`${API_BASE_URL}/calibrate/${userId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
